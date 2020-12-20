@@ -1,4 +1,3 @@
 #!/bin/sh
-
-telegraf &
+/telegraf/usr/bin/telegraf &
 influxd run -config /etc/influxdb.conf

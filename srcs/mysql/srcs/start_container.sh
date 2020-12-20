@@ -15,6 +15,6 @@ EOF
 
 mysql --user=root wordpress < /tmp/wordpress.sql
 
-telegraf
+/telegraf/usr/bin/telegraf &
 
 tail -F /dev/null

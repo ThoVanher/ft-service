@@ -22,9 +22,10 @@ RUN mv wordpress /var/www
 COPY srcs/wp-config.php /var/www/wp-config.php
 
 #installation de telegraf afin de fournir à influxdb les données d'utilisations des ressources par le container
-RUN apk add telegraf --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --allow-untrusted --no-cache
-RUN mkdir -p /etc/telegraf                                                      
-COPY ./srcs/telegraf.conf /etc/telegraf/telegraf.conf   
+RUN wget 'https://dl.influxdata.com/telegraf/releases/telegraf-1.16.0_linux_i386.tar.gz'
+RUN tar xvf 'telegraf-1.16.0_linux_i386.tar.gz'                                 
+RUN mv 'telegraf-1.16.0' telegraf                                               
+COPY srcs/telegraf.conf /etc/telegraf/telegraf.conf 
 
 #copie du scrip de lancement du serveur
 COPY srcs/start_container.sh /start_container.sh

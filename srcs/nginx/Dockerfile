@@ -16,10 +16,11 @@ RUN openssl req -x509 -nodes -subj '/C=FR/ST=LILLE/L=LILLE/O=thvanher/CN=localho
 			-out /etc/ssl/certs/selfsigned.crt
 
 #installation de telegraf afin de fournir à influxdb les données d'utilisations des ressources par le container
-RUN apk add telegraf --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --allow-untrusted --no-cache
-RUN mkdir -p /etc/telegraf                                                      
-COPY ./srcs/telegraf.conf /etc/telegraf/telegraf.conf   
-
+RUN wget 'https://dl.influxdata.com/telegraf/releases/telegraf-1.16.0_linux_i386.tar.gz'
+RUN tar xvf 'telegraf-1.16.0_linux_i386.tar.gz'
+RUN mv 'telegraf-1.16.0' telegraf
+COPY srcs/telegraf.conf /etc/telegraf/telegraf.conf 
+  
 #copie du script de lancement du container
 COPY srcs/start_container.sh start_container.sh
 

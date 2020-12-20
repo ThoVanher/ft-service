@@ -1,7 +1,7 @@
 #!/bin/sh
 
 
-#démarrage de la minikube VM
+#démarrage de la VM minikube avec le driver virtualbox
 minikube start --vm-driver=virtualbox
 
 #placement de l'environnement docker dans minikude
@@ -16,7 +16,7 @@ kubectl apply -f srcs/metallb.yaml > /dev/null
 
 build_images()
 {
-services="nginx wordpress mysql phpmyadmin influxdb"
+services="nginx wordpress mysql phpmyadmin influxdb grafana ftps"
 for service in $services
 	do
 		docker build --no-cache -t $service-image srcs/$service > /dev/null
@@ -25,7 +25,7 @@ for service in $services
 
 build_ressource()
 {
-services="nginx wordpress mysql phpmyadmin influxdb"
+services="nginx wordpress mysql phpmyadmin influxdb grafana ftps"
 for service in $services
 	do
 		kubectl apply -f srcs/$service/$service.yaml
